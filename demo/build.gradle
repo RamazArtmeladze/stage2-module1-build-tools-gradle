@@ -1,19 +1,40 @@
-plugins {
-    // Apply the Java plugin
-    id 'java'
-}
-
-group = 'com.epam.demo'
-version = '1.0-SNAPSHOT'
-
-
-
+//add everything here
 repositories {
-    // Add repositories where required dependencies are located
     mavenCentral()
+// provide repository, where required dependencies are located
 }
 
-dependencies {
-    implementation 'com.example.utils:utils:1.3.5'
+
+
+java {
+    sourceCompatibility = "1.8"
+
+// provide sourceCompatibility
 }
 
+publishing {
+    publications {
+        maven(MavenPublication) {
+            group = 'com.mjcschool'
+            version = '1.3.5'
+// provide groupId
+// provide artifactId
+// provide version
+            from components.java
+        }
+    }
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title' : "demo",
+                'Implementation-Version' : "1.3.5")
+        //provide manifest with such attributes as 'Implementation-Title', 'Implementation-Version'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileJava {}.dependsOn(':utils:publishToMavenLocal')
