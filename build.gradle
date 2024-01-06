@@ -7,10 +7,5 @@ subprojects {
 
     dependencies {
         testImplementation('org.junit.jupiter:junit-jupiter:5.8.1')
-        implementation 'org.apache.commons:commons-lang3:3.10'
-    }
-
-    test {
-        useJUnitPlatform()
     }
 }

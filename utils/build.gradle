@@ -25,8 +25,8 @@ publishing {
     publications {
         maven(MavenPublication) {
             // Set groupId, artifactId, and version
-            groupId = 'com.mjcschool'
-            artifactId = 'stage2-module1-build-tools-gradle'
+            groupId = 'com.epam.utils'
+            artifactId = 'project.name'
             version = '1.0.0'
 
             from components.java
