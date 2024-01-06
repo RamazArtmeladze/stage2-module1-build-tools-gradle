@@ -1,7 +1,55 @@
-//add everything here
+plugins {
+    // Apply the Java plugin
+    id 'java'
+
+    // Apply the Maven plugin for publishing
+    id 'maven-publish'
+}
+
+java {
+    // Set the source compatibility
+    sourceCompatibility = JavaVersion.VERSION_11
+}
+
+repositories {
+    // Add repositories where required dependencies are located
+    mavenCentral()
+}
+
+dependencies {
+    // Add Apache Commons Lang 3.10 (or higher) dependency
+    implementation 'org.apache.commons:commons-lang3:3.10'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            // Set groupId, artifactId, and version
+            groupId = 'com.mjcschool'
+            artifactId = 'stage2-module1-build-tools-gradle'
+            version = '1.0.0'
+
+            from components.java
+        }
+    }
+}
+
+jar {
+    manifest {
+        // Provide manifest attributes like 'Implementation-Title' and 'Implementation-Version'
+        attributes(
+                'Implementation-Title': 'stage2-module1-build-tools-gradle',
+                'Implementation-Version': '1.0.0'
+        )
+    }
+}
 
 test {
     useJUnitPlatform()
 }
 
+// Configure publishing to Maven local and make it run after the build
+publishMavenPublicationToMavenLocal {}.mustRunAfter('build')
+
+// Add dependency on ':utils:publishToMavenLocal' to 'compileJava'
 compileJava {}.dependsOn(':utils:publishToMavenLocal')

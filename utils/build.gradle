@@ -1,33 +1,46 @@
 plugins {
-    // id for library
-    // id for maven to publish jar to local repository
+    // Apply the Java plugin
+    id 'java'
+
+    // Apply the Maven plugin for publishing
+    id 'maven-publish'
 }
 
 java {
-// provide sourceCompatibility
+    // Set the source compatibility
+    sourceCompatibility = JavaVersion.VERSION_11
 }
 
 repositories {
-// provide repository, where required dependencies are located
+    // Add repositories where required dependencies are located
+    mavenCentral()
+}
+
+dependencies {
+    // Add Apache Commons Lang 3.10 (or higher) dependency
+    implementation 'org.apache.commons:commons-lang3:3.10'
 }
 
 publishing {
     publications {
         maven(MavenPublication) {
-// provide groupId
-// provide artifactId
-// provide version
+            // Set groupId, artifactId, and version
+            groupId = 'com.mjcschool'
+            artifactId = 'stage2-module1-build-tools-gradle'
+            version = '1.0.0'
 
             from components.java
         }
     }
 }
 
-//add Apache Apache Commons Lang 3.10 (or higher) dependency
-
 jar {
     manifest {
-        //provide manifest with such attributes as 'Implementation-Title', 'Implementation-Version'
+        // Provide manifest attributes like 'Implementation-Title' and 'Implementation-Version'
+        attributes(
+                'Implementation-Title': 'stage2-module1-build-tools-gradle',
+                'Implementation-Version': '1.0.0'
+        )
     }
 }
 
@@ -35,4 +48,5 @@ test {
     useJUnitPlatform()
 }
 
+// Configure publishing to Maven local and make it run after the build
 publishMavenPublicationToMavenLocal {}.mustRunAfter('build')
